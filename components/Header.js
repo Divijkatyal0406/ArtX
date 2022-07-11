@@ -23,15 +23,30 @@ function Header() {
     <div className={style.wrapper}>
         <Link href="/">
             <div className={style.logoContainer}>
-                <Image src={logo} height={45} width={45}/>
+                <Image src={logo} height={50} width={55}/>
                 <div className={style.logoText}>ArtX</div>
             </div>
         </Link>
         <div className={style.searchBar}>
           <div className={style.searchIcon}>
-            <AiOutlineSearch></AiOutlineSearch>
+            <AiOutlineSearch/>
           </div>
           <input className={style.searchInput} placeholder="Search best art, collections, and accounts"></input>
+        </div>
+        <div className={style.headerItems}>
+          <Link href='/collections/0x91170770647b3ddE3Dbabf2E7fDAe42985e492a7'>
+            <div className={style.headerItem}> Collections</div>
+          </Link>
+          <div className={style.headerItem}> Stats</div>
+          <div className={style.headerItem}> Resources</div>
+          <div className={style.headerItem}> Create</div>
+          
+          <div className={style.headerIcon}>
+            <CgProfile/>
+          </div>
+          <div className={style.headerIcon}>
+            <MdOutlineAccountBalanceWallet/>
+          </div>
         </div>
     </div>
   )
