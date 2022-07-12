@@ -2,7 +2,8 @@ import Header from "../components/Header"
 import Hero from "../components/Hero"
 import { useWeb3 } from "@3rdweb/hooks"
 import { useEffect } from "react"
-// import {client} from '@sanity/client'
+import {client} from '../lib/sanityClient'
+import toast,{Toaster} from 'react-hot-toast'
 
 
 const style = {
@@ -12,18 +13,21 @@ const style = {
   details: `text-lg text-center text=[#282b2f] font-semibold mt-4`,
 }
 
-const sanityClient = require('@sanity/client')
-const client = sanityClient({
-  projectId: 'your-project-id',
-  dataset: 'bikeshop',
-  apiVersion: '2021-03-25', // use current UTC date - see "specifying API version"!
-  token: 'sanity-auth-token', // or leave blank for unauthenticated usage
-  useCdn: true, // `false` if you want to ensure fresh data
-})
 
 export default function Home(){
   const {address,connectWallet}=useWeb3()
-  
+  const welcomeUser=(userName,toastHandler=toast)=>{
+    toastHandler.success(
+      `Welcome back ${userName}`,
+      {
+        style:{
+        background:'#04111d',
+          color:'#fff'
+      }
+    }
+    )
+  }
+
   useEffect(() => {
     if(!address) return
     ;(async () =>{
@@ -33,9 +37,9 @@ export default function Home(){
         userName:'Unnamed',
         walletAddress:address,
       }
-      client.createIfNotExists(userDoc).then((res) => {
-        console.log('User was created (or was already present)')
-      })
+      const result=await client.createIfNotExists(userDoc)
+      //result gives object back
+      welcomeUser(result.userName);
     })()
   }, [address])
 
@@ -46,6 +50,7 @@ export default function Home(){
   
   return (
     <div className={style.wrapper}>
+      <Toaster position="top-center" reverseOrder={false}></Toaster>
       {address ? (
         <>
           <Header />
