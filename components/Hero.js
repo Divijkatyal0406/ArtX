@@ -27,12 +27,15 @@ const Hero = () => {
                         Discover, collect and sell extraordinary art only at ArtX
                     </div>
                     <div className={style.description}>
-                        Buy and sell best arts as NFT&apos;s;
+                        Buy and sell best arts as NFT&apos;s
                     </div>
                     <div className={style.ctaContainer}>
                         <button className={style.accentedButton}>Explore</button>
                         <button className={style.button}>Create</button>
                     </div>
+                </div>
+                <div className={style.cardContainer} style={{width:'25%',height:'65%',marginBlockStart:'-7.0%',marginLeft:'10%'}}>
+                    <img className="rounded-t-lg" src="https://webneel.com/daily/sites/default/files/images/daily/11-2012/Leonid%20Afremov%20color%20(28).jpg"></img>
                 </div>
             </div>
         </div>
