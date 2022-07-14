@@ -42,7 +42,7 @@ function Collection() {
       if(!provider) return;
       const sdk=new ThirdwebSDK(
         provider.getSigner(),
-        'https://eth-rinkeby.alchemyapi.io/v2/VKmnNT8n20d-ymMOpXB4flTuPrnzlULG'
+        'YOUR API KEY'
       )
       return sdk.getNFTModule(collectionId)
   },[provider]) 
