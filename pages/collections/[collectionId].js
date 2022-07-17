@@ -5,9 +5,15 @@ import Link from 'next/link'
 import sanityClient from '@sanity/client'
 import {client} from "../../lib/sanityClient"
 import {ThirdwebSDK} from '@3rdweb/sdk'
+import Header from '../../components/Header'
+import {CgWebsite} from 'react-icons/cg'
+import {AiOutlineInstagram,AiOutlineTwitter} from 'react-icons/ai'
+import {HiDotsVertical} from 'react-icons/hi'
+import NFTCard from '../../components/NFTCard'
+
 
 const style = {
-  bannerImageContainer: `h-[20vh] w-screen overflow-hidden flex justify-center items-center`,
+  bannerImageContainer: `h-[40vh] w-screen overflow-hidden flex justify-center items-center`,
   bannerImage: `w-full object-cover`,
   infoContainer: `w-screen px-4`,
   midRow: `w-full flex justify-center text-white`,
@@ -32,9 +38,9 @@ function Collection() {
   const router=useRouter();
   const {provider}=useWeb3();
   const {collectionId}=router.query
-  const {collection,setCollection}=useState({})
-  const [nfts,setNfts]=useState({})
-  const [listings,setListings]=useState({})
+  const [collection,setCollection]=useState({})
+  const [nfts,setNfts]=useState([])
+  const [listings,setListings]=useState([])
 
   // https://eth-rinkeby.alchemyapi.io/v2/VKmnNT8n20d-ymMOpXB4flTuPrnzlULG
 
@@ -49,11 +55,12 @@ function Collection() {
 
   //get all nfts in collection
   useEffect(() => {
-    if(!nftModule) return;
+    if(!nftModule) return
     ;(async()=>{
       const nfts=await nftModule.getAll()
 
-      setNfts(nfts);
+      setNfts(nfts)
+      console.log(nfts.length+"🔥🔥")
     })()
   }, [nftModule])
   
@@ -69,9 +76,9 @@ function Collection() {
 
   //get all listings in collection
   useEffect(() => {
-    if(!marketPlaceModule) return;
+    if(!marketPlaceModule) return
     ;(async()=>{
-      setListings(await marketPlaceModule.getAllListings());
+      setListings(await marketPlaceModule.getAllListings())
     })()
   }, [marketPlaceModule])
 
@@ -83,7 +90,7 @@ function Collection() {
       volumeTraded,
       createdBy,
       contractAddress,
-      "creator":createdBy->userName
+      "creator":createdBy->userName,
       title,
       floorPrice,
       "allOwners":owners[]->,
@@ -91,17 +98,125 @@ function Collection() {
     }` 
     const collectionData=await sanityClient.fetch(query)
 
+    console.log(collectionData,'🔥')
+
     await setCollection(collectionData[0]);
   }
 
   useEffect(() => {
     fetchCollectionData()
   }, [collectionId])
-  
 
 
   return (
-    <h2>{router.query.collectionId}</h2>
+    <div className="overflow-hidden">
+      <Header />
+      <div className={style.bannerImageContainer}>
+        <img
+          className={style.bannerImage}
+          src={
+            collection?.bannerImageUrl
+              ? collection.bannerImageUrl
+              : 'https://via.placeholder.com/200'
+          }
+          alt="banner"
+        />
+      </div>
+      <div className={style.infoContainer}>
+        <div className={style.midRow}>
+          <img
+            className={style.profileImg}
+            src={
+              collection?.imageUrl
+                ? collection.imageUrl
+                : 'https://via.placeholder.com/200'
+            }
+            alt="profile image"
+          />
+        </div>
+        <div className={style.endRow}>
+          <div className={style.socialIconsContainer}>
+            <div className={style.socialIconsWrapper}>
+              <div className={style.socialIconsContent}>
+                <div className={style.socialIcon}>
+                  <CgWebsite />
+                </div>
+                <div className={style.divider} />
+                <div className={style.socialIcon}>
+                  <AiOutlineInstagram />
+                </div>
+                <div className={style.divider} />
+                <div className={style.socialIcon}>
+                  <AiOutlineTwitter />
+                </div>
+                <div className={style.divider} />
+                <div className={style.socialIcon}>
+                  <HiDotsVertical />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className={style.midRow}>
+          <div className={style.title}>{collection?.title}</div>
+        </div>
+        <div className={style.midRow}>
+          <div className={style.createdBy}>
+            Created by{' '}
+            <span className="text-[#2081e2]">{collection?.creator}</span>
+          </div>
+        </div>
+        <div className={style.midRow}>
+          <div className={style.statsContainer}>
+            <div className={style.collectionStat}>
+              <div className={style.statValue}>{nfts.length}</div>
+              <div className={style.statName}>items</div>
+            </div>
+            <div className={style.collectionStat}>
+              <div className={style.statValue}>
+                {collection?.allOwners ? collection.allOwners.length : ''}
+              </div>
+              <div className={style.statName}>owners</div>
+            </div>
+            <div className={style.collectionStat}>
+              <div className={style.statValue}>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/384px-Ethereum_logo_2014.svg.png?20161015085252"
+                  alt="eth"
+                  className={style.ethLogo}
+                />
+                {collection?.floorPrice}
+              </div>
+              <div className={style.statName}>floor price</div>
+            </div>
+            <div className={style.collectionStat}>
+              <div className={style.statValue}>
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Ethereum_logo_2014.svg/384px-Ethereum_logo_2014.svg.png?20161015085252"
+                  alt="eth"
+                  className={style.ethLogo}
+                />
+                {collection?.volumeTraded}.5K
+              </div>
+              <div className={style.statName}>volume traded</div>
+            </div>
+          </div>
+        </div>
+        <div className={style.midRow}>
+          <div className={style.description}>{collection?.description}</div>
+        </div>
+      </div>
+      <div className="flex flex-wrap ">
+        {nfts.map((nftItem, id) => (
+          <NFTCard
+            key={id}
+            nftItem={nftItem}
+            title={collection?.title}
+            listings={listings}
+          />
+        ))}
+      </div>
+    </div>
   )
 }
 

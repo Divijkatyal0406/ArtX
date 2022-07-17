@@ -34,7 +34,7 @@ function Header() {
           <input className={style.searchInput} placeholder="Search best art, collections, and accounts"></input>
         </div>
         <div className={style.headerItems}>
-          <Link href='/collections/0x91170770647b3ddE3Dbabf2E7fDAe42985e492a7'>
+          <Link href='/collections/0x4dEB796Fe4A28C45d85618C6bce7208F3551196e'>
             <div className={style.headerItem}> Collections</div>
           </Link>
           <div className={style.headerItem}> Stats</div>
