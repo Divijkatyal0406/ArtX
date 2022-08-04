@@ -6,7 +6,9 @@
 </p>
 
 ## ⚡️ Screenshots
-![alt text](https://github.com/Divijkatyal0406/MediBuddy/blob/master/images/dia1.png)
-![alt text](https://github.com/Divijkatyal0406/MediBuddy/blob/master/images/dia1.png)
-![alt text](https://github.com/Divijkatyal0406/MediBuddy/blob/master/images/dia1.png)
-![alt text](https://github.com/Divijkatyal0406/MediBuddy/blob/master/images/dia1.png)
+![alt text](https://github.com/Divijkatyal0406/ArtX/blob/main/Screenshot%202022-08-04%20133829.png)
+![alt text](https://github.com/Divijkatyal0406/ArtX/blob/main/Screenshot%202022-08-04%20133933.png)
+![alt text](https://github.com/Divijkatyal0406/ArtX/blob/main/Screenshot%202022-08-04%20133953.png)
+![alt text](https://github.com/Divijkatyal0406/ArtX/blob/main/Screenshot%202022-08-04%20134008.png)
+![alt text](https://github.com/Divijkatyal0406/ArtX/blob/main/Screenshot%202022-08-04%20134036.png)
+
